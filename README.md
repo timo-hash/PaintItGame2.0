@@ -23,3 +23,9 @@ the stages.*
 others to play.*
 
 
+## User Story
+- As a user, I want to be able to see whether I failed (game over) or I finished the puzzle
+- As a user, I want to be able to move the square in all 4 directions
+- As a user, I want to be able to try again or quit after I failed a stage
+- As a user, I want to be able to enter my name into the leaderboard once I have passed the stages
+- As a user, I want to be able to select the option to see the leaderboard and the score of other players
