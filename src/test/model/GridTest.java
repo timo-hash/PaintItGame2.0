@@ -13,14 +13,12 @@ class GridTest {
     @BeforeEach
     public void setup () {
         testGrid3 = new Grid();
-        testGrid3.makeGrid(gridSize3);
     }
 
     //test makeGrid
     @Test
-    public void testmakeGrid() {
+    public void testMakeGrid() {
         Grid testGrid5 = new Grid();
-        testGrid5.makeGrid(5);
 
         assertFalse(testGrid5.gridUnitValue(0,0));
         assertFalse(testGrid5.gridUnitValue(0,1));

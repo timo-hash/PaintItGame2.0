@@ -30,3 +30,6 @@ others to play.*
 - As a user, I want to be able to enter my name into the leaderboard once I have finished or failed
 - As a user, I want to be able to see the leaderboard
 - As a user, I want to be able to be able to try again
+
+- As a user, I want to be able to save my leaderboard scores to file
+  As a user, I want to be able to be able to load my leaderboard scores from file 

@@ -86,6 +86,7 @@ public class GameApp {
     }
 
 
+
     // MODIFIES: this
     // EFFECTS: moves the x to the left by 1 unit
     private void moveLeft() {
