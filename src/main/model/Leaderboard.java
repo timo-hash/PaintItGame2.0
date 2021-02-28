@@ -66,6 +66,10 @@ public class Leaderboard implements Writable {
         return Collections.unmodifiableList(players);
     }
 
+    public Boolean isEmpty() {
+        return players.isEmpty();
+    }
+
 
     @Override
     public JSONObject toJson() {

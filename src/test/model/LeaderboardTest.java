@@ -143,9 +143,9 @@ public class LeaderboardTest {
 
     @Test
     public void testGetName () {
-        testLB.addPlayers(p1);
+        Leaderboard testLB2 = new Leaderboard("test2");
 
-        assertEquals("aa", testLB.getIthPlayer(0).getName());
+        assertEquals("test2", testLB2.getName());
     }
 
     @Test
@@ -169,4 +169,17 @@ public class LeaderboardTest {
         assertEquals(expected, testLB.getPlayers());
     }
 
+    @Test
+    public void testEmptyLeaderboard () {
+        assertTrue(testLB.isEmpty());
+    }
+
+    @Test
+    public void testNonEmptyLeaderboard () {
+        testLB.addPlayers(p1);
+        testLB.addPlayers(p2);
+        testLB.addPlayers(p3);
+
+        assertFalse(testLB.isEmpty());
+    }
 }
