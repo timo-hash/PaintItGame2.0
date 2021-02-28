@@ -7,18 +7,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
 
-    public int gridSize3 = 3;
     public Grid testGrid3;
+    public Grid testGrid5;
 
     @BeforeEach
     public void setup () {
         testGrid3 = new Grid();
+        testGrid5 = new Grid();
     }
 
     //test makeGrid
     @Test
-    public void testMakeGrid() {
-        Grid testGrid5 = new Grid();
+    public void testMakeGrid5() {
+        testGrid5.makeGrid(5);
 
         assertFalse(testGrid5.gridUnitValue(0,0));
         assertFalse(testGrid5.gridUnitValue(0,1));
@@ -51,9 +52,11 @@ class GridTest {
         assertFalse(testGrid5.gridUnitValue(4,4));
     }
 
+
     //test gridUnitValue
     @Test
     public void testGridUnitValue() {
+        testGrid3.makeGrid(3);
         assertFalse(testGrid3.gridUnitValue(0,0));
         assertFalse(testGrid3.gridUnitValue(0,1));
         assertFalse(testGrid3.gridUnitValue(0,2));
@@ -71,6 +74,7 @@ class GridTest {
     // Test fillSquare
     @Test
     public void testFillSquare1() {
+        testGrid3.makeGrid(3);
         testGrid3.fillSquare(0,0);
         assertTrue(testGrid3.gridUnitValue(0,0));
         assertFalse(testGrid3.gridUnitValue(0,1));
@@ -85,6 +89,7 @@ class GridTest {
 
     @Test
     public void testFillSquare2() {
+        testGrid3.makeGrid(3);
         testGrid3.fillSquare(0,0);
         testGrid3.fillSquare(1,2);
         assertTrue(testGrid3.gridUnitValue(0,0));
@@ -100,6 +105,7 @@ class GridTest {
 
     @Test
     public void testFillSquare3() {
+        testGrid3.makeGrid(3);
         testGrid3.fillSquare(0,0);
         testGrid3.fillSquare(1,1);
         testGrid3.fillSquare(2,0);

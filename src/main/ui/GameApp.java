@@ -24,7 +24,6 @@ public class GameApp {
     private JsonReader jsonReader;
 
     boolean gameStillGoing = true;
-    boolean keepPlaying = true;
     int trueCounter = 1;
 
 
@@ -64,6 +63,8 @@ public class GameApp {
         processEndGameOptions(command);
     }
 
+    // MODIFIES: this
+    // EFFECTS: check if the grid is filled up and no more moves are possible
     private void checkNoMoreMoves() {
         if (trueCounter == game.gridArea()) {
             gameStillGoing = false;
@@ -216,8 +217,8 @@ public class GameApp {
         startGame();
     }
 
-    // MODIFIES: this, json
-    // EFFECTS: re-initiate the game and reset local variables
+    // MODIFIES: this, jsonWriter, jsonReader
+    // EFFECTS: process save, load, and print user inputs
     private void saveLoadPrintOptions(String command) {
         if (command.equals("s")) {
             saveLeaderboard();
