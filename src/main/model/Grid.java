@@ -7,9 +7,9 @@ public class Grid {
     private boolean[][] gameScreen;
 
     // getter
-    // EFFECTS: return the dimension of the square grid
+    // EFFECTS: return the width of the square grid
     public int getGridSize() {
-        return gridSize;
+        return gameScreen.length;
     }
 
 
@@ -43,7 +43,7 @@ public class Grid {
 
     // EFFECTS: return the number of units on the grid
     public int gridArea() {
-        return gridSize * gridSize;
+        return getGridSize() * getGridSize();
     }
 
     // EFFECTS: return the boolean value of a specified unit on the grid

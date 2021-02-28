@@ -14,13 +14,14 @@ class GridTest {
     public void setup () {
         testGrid3 = new Grid();
         testGrid5 = new Grid();
+
+        testGrid3.makeGrid(3);
+        testGrid5.makeGrid(5);
     }
 
     //test makeGrid
     @Test
     public void testMakeGrid5() {
-        testGrid5.makeGrid(5);
-
         assertFalse(testGrid5.gridUnitValue(0,0));
         assertFalse(testGrid5.gridUnitValue(0,1));
         assertFalse(testGrid5.gridUnitValue(0,2));
@@ -56,7 +57,6 @@ class GridTest {
     //test gridUnitValue
     @Test
     public void testGridUnitValue() {
-        testGrid3.makeGrid(3);
         assertFalse(testGrid3.gridUnitValue(0,0));
         assertFalse(testGrid3.gridUnitValue(0,1));
         assertFalse(testGrid3.gridUnitValue(0,2));
@@ -74,7 +74,6 @@ class GridTest {
     // Test fillSquare
     @Test
     public void testFillSquare1() {
-        testGrid3.makeGrid(3);
         testGrid3.fillSquare(0,0);
         assertTrue(testGrid3.gridUnitValue(0,0));
         assertFalse(testGrid3.gridUnitValue(0,1));
@@ -89,7 +88,6 @@ class GridTest {
 
     @Test
     public void testFillSquare2() {
-        testGrid3.makeGrid(3);
         testGrid3.fillSquare(0,0);
         testGrid3.fillSquare(1,2);
         assertTrue(testGrid3.gridUnitValue(0,0));
@@ -105,7 +103,6 @@ class GridTest {
 
     @Test
     public void testFillSquare3() {
-        testGrid3.makeGrid(3);
         testGrid3.fillSquare(0,0);
         testGrid3.fillSquare(1,1);
         testGrid3.fillSquare(2,0);
@@ -118,6 +115,26 @@ class GridTest {
         assertTrue(testGrid3.gridUnitValue(2,0));
         assertFalse(testGrid3.gridUnitValue(2,1));
         assertFalse(testGrid3.gridUnitValue(2,2));
+    }
+
+    @Test
+    public void testGetGridSize3() {
+        assertEquals(3, testGrid3.getGridSize());
+    }
+
+    @Test
+    public void testGetGridSize5() {
+        assertEquals(5, testGrid5.getGridSize());
+    }
+
+    @Test
+    public void testGridArea3() {
+        assertEquals(9, testGrid3.gridArea());
+    }
+
+    @Test
+    public void testGridArea5() {
+        assertEquals(25, testGrid5.gridArea());
     }
 
 }
