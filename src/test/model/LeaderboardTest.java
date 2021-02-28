@@ -17,7 +17,7 @@ public class LeaderboardTest {
     @BeforeEach
     public void setup() {
 
-        testLB = new Leaderboard();
+        testLB = new Leaderboard("Game Leaderboard");
         p1 = new Player("aa", 1);
         p2 = new Player("bb", 2);
         p3 = new Player("cc", 3);

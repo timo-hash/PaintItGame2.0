@@ -1,15 +1,25 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
-public class Leaderboard {
+public class Leaderboard implements Writable {
 
     private ArrayList<Player> players;
     private Grid grid;
+    private String name;
 
-    public Leaderboard() {
+    // EFFECTS: constructs leaderboard with a name and empty list of players
+    public Leaderboard(String name) {
+        this.name = name;
         players = new ArrayList<Player>();
     }
 
@@ -46,7 +56,40 @@ public class Leaderboard {
         });
     }
 
-      // EFFECTS: print leaderboard out on the console
+
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Player> getPlayers() {
+        return Collections.unmodifiableList(players);
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("Leaderboard", playersToJson());
+        return json;
+    }
+
+    // EFFECTS: returns players in this leaderboard as a JSON array
+    private JSONArray playersToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Player p : players) {
+            jsonArray.put(p.toJson());
+        }
+
+        return jsonArray;
+    }
+
+
+
+
+    // EFFECTS: print leaderboard out on the console
 //    public void printLeaderboard() {
 //        grid = new Grid();
 //        System.out.println("\nLeaderboard");

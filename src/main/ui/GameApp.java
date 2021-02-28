@@ -4,7 +4,11 @@ import model.Grid;
 import model.Leaderboard;
 import model.Player;
 import model.PlayerSquare;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class GameApp {
@@ -15,13 +19,20 @@ public class GameApp {
     private Grid game;
     private Leaderboard leaderboard;
 
+    private static final String JSON_STORE = "./data/leaderboard.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
     boolean gameStillGoing = true;
+    boolean keepPlaying = true;
     int trueCounter = 1;
 
 
     // EFFECTS: runs the game application
     public GameApp() {
-        leaderboard = new Leaderboard();
+        leaderboard = new Leaderboard("Game Leaderboard");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         startGame();
     }
 
@@ -37,22 +48,26 @@ public class GameApp {
             command = command.toLowerCase();
             processControl(command);
 
-            if (trueCounter == game.gridArea()) {
-                gameStillGoing = false;
-            }
+            checkNoMoreMoves();
         }
 
         gameOver();
         recordNameAndScore();
-        leaderboard.sortPlayers();
-        printLeaderboard();
 
         while (!(command.equals("q") || command.equals("r"))) {
             displayEndGameControl();
             command = input.next();
             command = command.toLowerCase();
+
+            saveLoadPrintOptions(command);
         }
         processEndGameOptions(command);
+    }
+
+    private void checkNoMoreMoves() {
+        if (trueCounter == game.gridArea()) {
+            gameStillGoing = false;
+        }
     }
 
     // MODIFIES: this
@@ -177,6 +192,7 @@ public class GameApp {
         player = new Player(playerName, trueCounter);
 
         leaderboard.addPlayers(player);
+        leaderboard.sortPlayers();
     }
 
 
@@ -200,14 +216,28 @@ public class GameApp {
         startGame();
     }
 
+    // MODIFIES: this, json
+    // EFFECTS: re-initiate the game and reset local variables
+    private void saveLoadPrintOptions(String command) {
+        if (command.equals("s")) {
+            saveLeaderboard();
+        } else if (command.equals("l")) {
+            loadLeaderboard();
+        } else if (command.equals("p")) {
+            printLeaderboard();
+        }
+    }
+
 
     // MODIFIES: this
     // EFFECTS: processes end game user input
     public void processEndGameOptions(String command) {
         if (command.equals("q")) {
             System.out.println("\nPlay again next time!");
-        } else {
+        } else if (command.equals("r")) {
             restart();
+        } else {
+            System.out.println("Selection not valid. Please select again.");
         }
     }
 
@@ -215,5 +245,33 @@ public class GameApp {
     public void displayEndGameControl() {
         System.out.println("\nTo quit, press q");
         System.out.println("To try again, press r");
+        System.out.println("To save a copy of score on leaderboard, press s");
+        System.out.println("To load previous scores on leaderboard, press l");
+        System.out.println("To print out score from leaderboard, press p");
+    }
+
+
+
+    // EFFECTS: saves the leaderboard to file
+    private void saveLeaderboard() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(leaderboard);
+            jsonWriter.close();
+            System.out.println("Saved " + leaderboard.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads leaderboard from file
+    private void loadLeaderboard() {
+        try {
+            leaderboard = jsonReader.read();
+            System.out.println("Loaded " + leaderboard.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }
