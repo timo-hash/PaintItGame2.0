@@ -9,14 +9,15 @@ class GridTest {
 
     public Grid testGrid3;
     public Grid testGrid5;
+    private int gridSize;
 
     @BeforeEach
     public void setup () {
-        testGrid3 = new Grid();
-        testGrid5 = new Grid();
+        testGrid3 = new Grid(3);
+        testGrid5 = new Grid(5);
 
-        testGrid3.makeGrid(3);
-        testGrid5.makeGrid(5);
+        testGrid3.makeGrid();
+        testGrid5.makeGrid();
     }
 
     //test makeGrid
@@ -126,6 +127,7 @@ class GridTest {
     public void testGetGridSize5() {
         assertEquals(5, testGrid5.getGridSize());
     }
+
 
     @Test
     public void testGridArea3() {

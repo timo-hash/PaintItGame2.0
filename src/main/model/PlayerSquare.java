@@ -6,10 +6,8 @@ public class PlayerSquare {
     private int ypos;
 
 
-    public PlayerSquare() {
-
-        Grid grid = new Grid();
-        xpos =  grid.getGridSize() / 2;
+    public PlayerSquare(int gridSize) {
+        xpos = gridSize / 2;
         ypos = xpos;
     }
 

@@ -3,18 +3,22 @@ package model;
 
 public class Grid {
 
-    private int gridSize = 5;  // works better if it's an odd number
+    private int gridSize;  // works better if it's an odd number
     private boolean[][] gameScreen;
 
+    public Grid(int gridSize) {
+        this.gridSize = gridSize;
+    }
+
     // getter
-    // EFFECTS: return the width of the square grid
+    // EFFECTS: return the field gridSize
     public int getGridSize() {
-        return gameScreen.length;
+        return gridSize;
     }
 
 
     // EFFECTS: create a 2D square array of booleans, and set center value to true
-    public void makeGrid(int gridSize) {
+    public void makeGrid() {
         gameScreen = new boolean[gridSize][gridSize];
 
         for (int row = 0; row < gameScreen.length; row++) {
@@ -43,7 +47,7 @@ public class Grid {
 
     // EFFECTS: return the number of units on the grid
     public int gridArea() {
-        return getGridSize() * getGridSize();
+        return gridSize * gridSize;
     }
 
     // EFFECTS: return the boolean value of a specified unit on the grid
@@ -56,4 +60,11 @@ public class Grid {
     public void fillSquare(int x, int y) {
         gameScreen[y][x] = true;
     }
+
+//    // MODIFIES: this
+//    // EFFECTS: set size of grid
+//    public void setGridSize(int dimension) {
+//        this.gridSize = dimension;
+//    }
+
 }

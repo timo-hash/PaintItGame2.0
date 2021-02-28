@@ -25,6 +25,7 @@ public class GameApp {
 
     boolean gameStillGoing = true;
     int trueCounter = 1;
+    int gridSize = 5;
 
 
     // EFFECTS: runs the game application
@@ -32,6 +33,7 @@ public class GameApp {
         leaderboard = new Leaderboard("Game Leaderboard");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+        loadLeaderboard();
         startGame();
     }
 
@@ -63,6 +65,7 @@ public class GameApp {
         processEndGameOptions(command);
     }
 
+
     // MODIFIES: this
     // EFFECTS: check if the grid is filled up and no more moves are possible
     private void checkNoMoreMoves() {
@@ -74,13 +77,13 @@ public class GameApp {
     // MODIFIES: this
     // EFFECTS: initializes grid, playerSquare and input
     private void init() {
-        game = new Grid();
-        ps = new PlayerSquare();
+        game = new Grid(gridSize);
+        ps = new PlayerSquare(gridSize);
         input = new Scanner(System.in);
 
         displayControl();
         System.out.println();
-        game.makeGrid(game.getGridSize());
+        game.makeGrid();
         game.printGrid();
     }
 
@@ -222,8 +225,6 @@ public class GameApp {
     private void saveLoadPrintOptions(String command) {
         if (command.equals("s")) {
             saveLeaderboard();
-        } else if (command.equals("l")) {
-            loadLeaderboard();
         } else if (command.equals("p")) {
             printLeaderboard();
         }
@@ -246,8 +247,7 @@ public class GameApp {
     public void displayEndGameControl() {
         System.out.println("\nTo quit, press q");
         System.out.println("To try again, press r");
-        System.out.println("To save a copy of score on leaderboard, press s");
-        System.out.println("To load previous scores on leaderboard, press l");
+        System.out.println("To save your score to the leaderboard, press s");
         System.out.println("To print out score from leaderboard, press p");
     }
 
