@@ -72,7 +72,7 @@ public class LeaderboardTest {
         assertEquals(3, testLB.numOfPlayers());
     }
 
-    // test numOfPlayers
+    // test containPlayers
     @Test
     public void testContainPlayers0 () {
         assertFalse(testLB.containPlayers(p1));
