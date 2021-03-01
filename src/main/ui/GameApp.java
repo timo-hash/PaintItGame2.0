@@ -84,7 +84,7 @@ public class GameApp {
         displayControl();
         System.out.println();
         game.makeGrid();
-        game.printGrid();
+        printGrid();
     }
 
 
@@ -116,7 +116,7 @@ public class GameApp {
         } else {
             ps.moveLeft();
             game.fillSquare(ps.getCurrentXPos(), ps.getCurrentYPos());
-            game.printGrid();
+            printGrid();
             trueCounter = trueCounter + 1;
         }
 
@@ -132,7 +132,7 @@ public class GameApp {
         } else {
             ps.moveRight();
             game.fillSquare(ps.getCurrentXPos(), ps.getCurrentYPos());
-            game.printGrid();
+            printGrid();
             trueCounter = trueCounter + 1;
         }
     }
@@ -147,7 +147,7 @@ public class GameApp {
         } else {
             ps.moveUp();
             game.fillSquare(ps.getCurrentXPos(), ps.getCurrentYPos());
-            game.printGrid();
+            printGrid();
             trueCounter = trueCounter + 1;
         }
     }
@@ -162,7 +162,7 @@ public class GameApp {
         } else {
             ps.moveDown();
             game.fillSquare(ps.getCurrentXPos(), ps.getCurrentYPos());
-            game.printGrid();
+            printGrid();
             trueCounter = trueCounter + 1;
         }
     }
@@ -177,6 +177,20 @@ public class GameApp {
         System.out.println("\tpress s to move down");
     }
 
+    //EFFECTS: print the grid on console with false represented as o, and true as x
+    public void printGrid() {
+        for (boolean[] row : game.getGameScreen()) {
+            for (boolean b: row) {
+                if (b) {
+                    System.out.print("x ");
+                } else {
+                    System.out.print("o ");
+                }
+            }
+
+            System.out.println();
+        }
+    }
 
     // EFFECTS: print game over and player score on console
     public void gameOver() {
@@ -275,4 +289,6 @@ public class GameApp {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
+
+
 }

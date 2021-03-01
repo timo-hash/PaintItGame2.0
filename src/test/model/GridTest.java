@@ -139,4 +139,46 @@ class GridTest {
         assertEquals(25, testGrid5.gridArea());
     }
 
+    @Test
+    public void testGetGridScreenChangingValuesOfGrid() {
+        testGrid3.getGameScreen();
+        testGrid3.makeGrid();
+
+        assertFalse(testGrid3.gridUnitValue(0,0));
+        assertFalse(testGrid3.gridUnitValue(0,1));
+        assertFalse(testGrid3.gridUnitValue(0,2));
+        assertFalse(testGrid3.gridUnitValue(1,0));
+        assertTrue(testGrid3.gridUnitValue(1,1));
+        assertFalse(testGrid3.gridUnitValue(1,2));
+        assertFalse(testGrid3.gridUnitValue(2,0));
+        assertFalse(testGrid3.gridUnitValue(2,1));
+        assertFalse(testGrid3.gridUnitValue(2,2));
+
+        for (int row = 0; row < testGrid3.getGridSize(); row++) {
+            for (int col = 0; col < testGrid3.getGridSize(); col++) {
+                testGrid3.getGameScreen()[row][col] = true;
+            }
+        }
+
+        assertTrue(testGrid3.gridUnitValue(0,0));
+        assertTrue(testGrid3.gridUnitValue(0,1));
+        assertTrue(testGrid3.gridUnitValue(0,2));
+        assertTrue(testGrid3.gridUnitValue(1,0));
+        assertTrue(testGrid3.gridUnitValue(1,1));
+        assertTrue(testGrid3.gridUnitValue(1,2));
+        assertTrue(testGrid3.gridUnitValue(2,0));
+        assertTrue(testGrid3.gridUnitValue(2,1));
+        assertTrue(testGrid3.gridUnitValue(2,2));
+
+
+    }
+
+    @Test
+    public void testGetGridScreenLength() {
+        assertEquals(3, testGrid3.getGameScreen().length);
+        assertEquals(5, testGrid5.getGameScreen().length);
+    }
+
+
+
 }

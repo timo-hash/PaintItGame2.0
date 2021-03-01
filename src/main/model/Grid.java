@@ -17,6 +17,7 @@ public class Grid {
     }
 
 
+
     // EFFECTS: create a 2D square array of booleans, and set center value to true
     public void makeGrid() {
         gameScreen = new boolean[gridSize][gridSize];
@@ -30,20 +31,6 @@ public class Grid {
 
     }
 
-    //EFFECTS: print the grid on console with false represented as o, and true as x
-    public void printGrid() {
-        for (boolean[] row : gameScreen) {
-            for (boolean b: row) {
-                if (b) {
-                    System.out.print("x ");
-                } else {
-                    System.out.print("o ");
-                }
-            }
-
-            System.out.println();
-        }
-    }
 
     // EFFECTS: return the number of units on the grid
     public int gridArea() {
@@ -59,6 +46,11 @@ public class Grid {
     //EFFECTS: set a particular element of the array to true
     public void fillSquare(int x, int y) {
         gameScreen[y][x] = true;
+    }
+
+
+    public boolean[][] getGameScreen() {
+        return gameScreen;
     }
 
 //    // MODIFIES: this
