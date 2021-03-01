@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -181,5 +183,19 @@ public class LeaderboardTest {
         testLB.addPlayers(p3);
 
         assertFalse(testLB.isEmpty());
+    }
+
+    @Test public void testToJson() {
+        JSONObject jObject = testLB.toJson();
+        assertEquals("Game Leaderboard", jObject.get("name"));
+        assertEquals(0, jObject.getJSONArray("Leaderboard").length());
+    }
+
+    @Test public void testPlayersToJson() {
+        testLB.addPlayers(p1);
+        testLB.addPlayers(p2);
+        testLB.addPlayers(p3);
+        JSONArray jList = testLB.playersToJson();
+        assertEquals(3, jList.length());
     }
 }

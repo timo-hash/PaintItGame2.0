@@ -14,7 +14,6 @@ import java.util.List;
 public class Leaderboard implements Writable {
 
     private ArrayList<Player> players;
-    private Grid grid;
     private String name;
 
     // EFFECTS: constructs leaderboard with a name and empty list of players
@@ -80,7 +79,7 @@ public class Leaderboard implements Writable {
     }
 
     // EFFECTS: returns players in this leaderboard as a JSON array
-    private JSONArray playersToJson() {
+    public JSONArray playersToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (Player p : players) {
