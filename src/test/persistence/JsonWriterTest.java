@@ -2,15 +2,26 @@ package persistence;
 
 import model.Leaderboard;
 import model.Player;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonWriterTest extends JsonTest{
+
+    @BeforeEach
+    public void setup() {
+
+    }
+
+
     @Test
     void testWriterInvalidFile() {
         try {
@@ -64,4 +75,33 @@ public class JsonWriterTest extends JsonTest{
             fail("Exception should not have been thrown");
         }
     }
+
+    @Test
+    public void testOpen() {
+        try {
+            JsonWriter tJWriter = new JsonWriter("test file");
+            tJWriter.open();
+        } catch (FileNotFoundException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
+
+//    @Test
+//    public void testOpenFailed() {
+//        try {
+//            JsonWriter tJWriter = new JsonWriter("test file");
+//            tJWriter.destination = "test file 2";
+//            tJWriter.open();
+//        } catch (FileNotFoundException e) {
+//
+//        }
+//    }
+
+//    @Test
+//    public void testClose() {
+//
+//            JsonWriter tJWriter = new JsonWriter("test file");
+//            tJWriter.close();
+//
+//    }
 }

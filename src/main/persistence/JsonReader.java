@@ -29,7 +29,7 @@ public class JsonReader {
     }
 
     // EFFECTS: reads source file as string and returns it
-    private String readFile(String source) throws IOException {
+    public String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
@@ -40,7 +40,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses LeaderBoard from JSON object and returns it
-    private Leaderboard parseLeaderBoard(JSONObject jsonObject) {
+    public Leaderboard parseLeaderBoard(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Leaderboard lb = new Leaderboard(name);
         addLeaderboards(lb, jsonObject);
@@ -48,8 +48,8 @@ public class JsonReader {
     }
 
     // MODIFIES: lb
-    // EFFECTS: parses thingies from JSON object and adds them to LeaderBoard
-    private void addLeaderboards(Leaderboard lb, JSONObject jsonObject) {
+    // EFFECTS: parses players from JSON object and adds them to LeaderBoard
+    public void addLeaderboards(Leaderboard lb, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("Leaderboard");
         for (Object json : jsonArray) {
             JSONObject nextPlayer = (JSONObject) json;
@@ -58,7 +58,7 @@ public class JsonReader {
     }
 
     // MODIFIES: lb
-    // EFFECTS: parses thingy from JSON object and adds it to LeaderBoard
+    // EFFECTS: parses player from JSON object and adds it to LeaderBoard
     private void addPlayer(Leaderboard lb, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int score = jsonObject.getInt("score");
