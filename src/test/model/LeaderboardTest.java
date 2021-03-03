@@ -191,11 +191,25 @@ public class LeaderboardTest {
         assertEquals(0, jObject.getJSONArray("Leaderboard").length());
     }
 
+    @Test public void testToJsonOnePlayer() {
+        testLB.addPlayers(p1);
+        JSONObject jObject = testLB.toJson();
+        assertEquals("Game Leaderboard", jObject.get("name"));
+        assertEquals(1, jObject.getJSONArray("Leaderboard").length());
+        assertEquals("aa", jObject.getJSONArray("Leaderboard").getJSONObject(0)
+                .getString("name"));
+        assertEquals(1, jObject.getJSONArray("Leaderboard").getJSONObject(0)
+                .getInt("score"));
+    }
+
     @Test public void testPlayersToJson() {
         testLB.addPlayers(p1);
         testLB.addPlayers(p2);
         testLB.addPlayers(p3);
         JSONArray jList = testLB.playersToJson();
         assertEquals(3, jList.length());
+        assertEquals("aa", jList.getJSONObject(0).get("name"));
+        assertEquals("bb", jList.getJSONObject(1).get("name"));
+        assertEquals("cc", jList.getJSONObject(2).get("name"));
     }
 }

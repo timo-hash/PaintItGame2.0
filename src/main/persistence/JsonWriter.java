@@ -47,4 +47,10 @@ public class JsonWriter {
         writer.print(json);
     }
 
+
+    // EFFECTS: output true if error was encountered in a method call in writer, false otherwise
+    public boolean errorState() {
+        return writer.checkError();
+    }
+
 }

@@ -2,6 +2,7 @@ package persistence;
 
 import model.Leaderboard;
 import model.Player;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,14 +12,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonWriterTest extends JsonTest{
 
+    Player p1;
+    Player p2;
+
     @BeforeEach
     public void setup() {
-
+        p1 = new Player("a", 1);
+        p2 = new Player("b", 2);
     }
 
 
@@ -81,27 +86,51 @@ public class JsonWriterTest extends JsonTest{
         try {
             JsonWriter tJWriter = new JsonWriter("test file");
             tJWriter.open();
+            assertFalse(tJWriter.errorState());
         } catch (FileNotFoundException e) {
             fail("Exception should not have been thrown");
         }
     }
 
-//    @Test
-//    public void testOpenFailed() {
-//        try {
-//            JsonWriter tJWriter = new JsonWriter("test file");
-//            tJWriter.destination = "test file 2";
-//            tJWriter.open();
-//        } catch (FileNotFoundException e) {
-//
-//        }
-//    }
 
-//    @Test
-//    public void testClose() {
-//
-//            JsonWriter tJWriter = new JsonWriter("test file");
-//            tJWriter.close();
-//
-//    }
+    @Test
+    public void testClose() {
+        JsonWriter tJWriter = new JsonWriter("test file");
+        try {
+            tJWriter.open();
+        } catch (FileNotFoundException e) {
+            fail("Exception should not have been thrown");
+        }
+
+        assertFalse(tJWriter.errorState());
+        tJWriter.close();
+        assertFalse(tJWriter.errorState());
+
+
+    }
+
+    @Test
+    public void testWrite() {
+        Leaderboard lb = new Leaderboard("Test LB");
+        lb.addPlayers(p1);
+        JsonWriter tJWriter = new JsonWriter("test file");
+
+        try {
+            tJWriter.open();
+            assertFalse(tJWriter.errorState());
+        } catch (FileNotFoundException e) {
+            fail("Exception should not have been thrown");
+        }
+
+        JSONObject json = lb.toJson();
+        tJWriter.saveToFile(json.toString(3));
+        assertEquals("Test LB", json.get("name"));
+        assertEquals(1, json.getJSONArray("Leaderboard").length());
+        assertEquals("a", json.getJSONArray("Leaderboard").getJSONObject(0)
+        .getString("name"));
+
+        assertFalse(tJWriter.errorState());
+        tJWriter.close();
+    }
+
 }
