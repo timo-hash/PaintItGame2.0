@@ -1,21 +1,19 @@
-package persistence;
+package model;
 
-import model.Leaderboard;
-import model.Player;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class JsonWriterTest extends JsonTest{
+public class JsonWriterTest extends JsonTest {
 
     Player p1;
     Player p2;
