@@ -43,12 +43,12 @@ public class JsonWriterTest extends JsonTest {
     void testWriterEmptyLeaderboard() {
         try {
             Leaderboard lb = new Leaderboard("My Leaderboard");
-            JsonWriter writer = new JsonWriter("testWriterEmptyLeaderboard");
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyLeaderboard.json");
             writer.open();
             writer.write(lb);
             writer.close();
 
-            JsonReader reader = new JsonReader("testWriterEmptyLeaderboard");
+            JsonReader reader = new JsonReader("./data/testWriterEmptyLeaderboard.json");
             lb = reader.read();
             assertEquals("My Leaderboard", lb.getName());
             assertEquals(0, lb.numOfPlayers());
@@ -63,12 +63,12 @@ public class JsonWriterTest extends JsonTest {
             Leaderboard lb = new Leaderboard("My Leaderboard");
             lb.addPlayers(new Player("Amy", 5));
             lb.addPlayers(new Player("Jim", 3));
-            JsonWriter writer = new JsonWriter("testWriterGeneralLeaderboard");
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralLeaderboard.json");
             writer.open();
             writer.write(lb);
             writer.close();
 
-            JsonReader reader = new JsonReader("testWriterGeneralLeaderboard");
+            JsonReader reader = new JsonReader("./data/testWriterGeneralLeaderboard.json");
             lb = reader.read();
             assertEquals("My Leaderboard", lb.getName());
             List<Player> players = lb.getPlayers();
