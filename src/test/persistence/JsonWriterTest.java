@@ -19,11 +19,13 @@ public class JsonWriterTest extends JsonTest{
 
     Player p1;
     Player p2;
+    Player p3;
 
     @BeforeEach
     public void setup() {
         p1 = new Player("a", 1);
         p2 = new Player("b", 2);
+        p3 = new Player("c", 3);
     }
 
 
@@ -84,7 +86,7 @@ public class JsonWriterTest extends JsonTest{
     @Test
     public void testOpen() {
         try {
-            JsonWriter tJWriter = new JsonWriter("test file");
+            JsonWriter tJWriter = new JsonWriter("./data/testOpen.json");
             tJWriter.open();
             assertFalse(tJWriter.errorState());
         } catch (FileNotFoundException e) {
@@ -95,7 +97,7 @@ public class JsonWriterTest extends JsonTest{
 
     @Test
     public void testClose() {
-        JsonWriter tJWriter = new JsonWriter("test file");
+        JsonWriter tJWriter = new JsonWriter("./data/testClose.json");
         try {
             tJWriter.open();
         } catch (FileNotFoundException e) {
@@ -110,10 +112,10 @@ public class JsonWriterTest extends JsonTest{
     }
 
     @Test
-    public void testWrite() {
+    public void testSaveToFile() {
         Leaderboard lb = new Leaderboard("Test LB");
         lb.addPlayers(p1);
-        JsonWriter tJWriter = new JsonWriter("test file");
+        JsonWriter tJWriter = new JsonWriter("./data/testSaveToFile.json");
 
         try {
             tJWriter.open();
@@ -132,5 +134,59 @@ public class JsonWriterTest extends JsonTest{
         assertFalse(tJWriter.errorState());
         tJWriter.close();
     }
+
+    @Test
+    public void testWrite1Player() {
+        Leaderboard lb = new Leaderboard("Test LB");
+        lb.addPlayers(p1);
+        JsonWriter tJWriter = new JsonWriter("./data/testWrite1Player.json");
+        try {
+            tJWriter.open();
+        } catch (FileNotFoundException e) {
+            fail("Exception should not have been thrown");
+        }
+        tJWriter.write(lb);
+        assertFalse(tJWriter.errorState());
+        tJWriter.close();
+
+        JSONObject json = lb.toJson();
+        tJWriter.saveToFile(json.toString(3));
+        assertEquals("Test LB", json.get("name"));
+        assertEquals(1, json.getJSONArray("Leaderboard").length());
+        assertEquals("a", json.getJSONArray("Leaderboard").getJSONObject(0)
+                .getString("name"));
+
+    }
+
+
+    @Test
+    public void testWrite3Player() {
+        Leaderboard lb = new Leaderboard("Test LB");
+        lb.addPlayers(p1);
+        lb.addPlayers(p2);
+        lb.addPlayers(p3);
+        JsonWriter tJWriter = new JsonWriter("./data/testWrite3Players.json");
+        try {
+            tJWriter.open();
+        } catch (FileNotFoundException e) {
+            fail("Exception should not have been thrown");
+        }
+        tJWriter.write(lb);
+        assertFalse(tJWriter.errorState());
+        tJWriter.close();
+
+        JSONObject json = lb.toJson();
+        tJWriter.saveToFile(json.toString(3));
+        assertEquals("Test LB", json.get("name"));
+        assertEquals(3, json.getJSONArray("Leaderboard").length());
+        assertEquals("a", json.getJSONArray("Leaderboard").getJSONObject(0)
+                .getString("name"));
+        assertEquals("b", json.getJSONArray("Leaderboard").getJSONObject(1)
+                .getString("name"));
+        assertEquals("c", json.getJSONArray("Leaderboard").getJSONObject(2)
+                .getString("name"));
+
+    }
+
 
 }
