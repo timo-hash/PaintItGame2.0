@@ -1,0 +1,17 @@
+{
+    "Leaderboard": [
+        {
+            "score": 1,
+            "name": "a"
+        },
+        {
+            "score": 2,
+            "name": "b"
+        },
+        {
+            "score": 3,
+            "name": "c"
+        }
+    ],
+    "name": "Test LB"
+}

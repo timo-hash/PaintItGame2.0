@@ -2,6 +2,7 @@ package persistence;
 
 import model.Leaderboard;
 import model.Player;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -51,4 +52,23 @@ public class JsonReaderTest extends JsonTest {
             fail("Couldn't read from file");
         }
     }
+
+    @Test
+    void testReaderFileWith3Players() {
+        JsonReader reader = new JsonReader("test read 3 players");
+        try {
+            Leaderboard lb = reader.read();
+            assertEquals("Test LB", lb.getName());
+            List<Player> players = lb.getPlayers();
+            assertEquals(3, players.size());
+            checkPlayer("a", 1, players.get(0));
+            checkPlayer("b", 2, players.get(1));
+            checkPlayer("c", 3, players.get(2));
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+
+
+    }
+
 }
