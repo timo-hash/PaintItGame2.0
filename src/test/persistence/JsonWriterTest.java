@@ -1,10 +1,10 @@
-package model;
+package persistence;
 
+import model.Leaderboard;
+import model.Player;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import persistence.JsonReader;
-import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,12 +43,12 @@ public class JsonWriterTest extends JsonTest {
     void testWriterEmptyLeaderboard() {
         try {
             Leaderboard lb = new Leaderboard("My Leaderboard");
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyLeaderboard.json");
+            JsonWriter writer = new JsonWriter("testWriterEmptyLeaderboard");
             writer.open();
             writer.write(lb);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyLeaderboard.json");
+            JsonReader reader = new JsonReader("testWriterEmptyLeaderboard");
             lb = reader.read();
             assertEquals("My Leaderboard", lb.getName());
             assertEquals(0, lb.numOfPlayers());
@@ -63,12 +63,12 @@ public class JsonWriterTest extends JsonTest {
             Leaderboard lb = new Leaderboard("My Leaderboard");
             lb.addPlayers(new Player("Amy", 5));
             lb.addPlayers(new Player("Jim", 3));
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralLeaderboard.json");
+            JsonWriter writer = new JsonWriter("testWriterGeneralLeaderboard");
             writer.open();
             writer.write(lb);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralLeaderboard.json");
+            JsonReader reader = new JsonReader("testWriterGeneralLeaderboard");
             lb = reader.read();
             assertEquals("My Leaderboard", lb.getName());
             List<Player> players = lb.getPlayers();
@@ -84,7 +84,7 @@ public class JsonWriterTest extends JsonTest {
     @Test
     public void testOpen() {
         try {
-            JsonWriter tJWriter = new JsonWriter("./data/testOpen.json");
+            JsonWriter tJWriter = new JsonWriter("test open");
             tJWriter.open();
             assertFalse(tJWriter.errorState());
         } catch (FileNotFoundException e) {
@@ -95,7 +95,7 @@ public class JsonWriterTest extends JsonTest {
 
     @Test
     public void testClose() {
-        JsonWriter tJWriter = new JsonWriter("./data/testClose.json");
+        JsonWriter tJWriter = new JsonWriter("test close");
         try {
             tJWriter.open();
         } catch (FileNotFoundException e) {
@@ -113,7 +113,7 @@ public class JsonWriterTest extends JsonTest {
     public void testSaveToFile() {
         Leaderboard lb = new Leaderboard("Test LB");
         lb.addPlayers(p1);
-        JsonWriter tJWriter = new JsonWriter("./data/testSaveToFile.json");
+        JsonWriter tJWriter = new JsonWriter("test SaveToFile");
 
         try {
             tJWriter.open();
@@ -137,7 +137,7 @@ public class JsonWriterTest extends JsonTest {
     public void testWrite1Player() {
         Leaderboard lb = new Leaderboard("Test LB");
         lb.addPlayers(p1);
-        JsonWriter tJWriter = new JsonWriter("./data/testWrite1Player.json");
+        JsonWriter tJWriter = new JsonWriter("test write 1 player");
         try {
             tJWriter.open();
         } catch (FileNotFoundException e) {
@@ -163,7 +163,7 @@ public class JsonWriterTest extends JsonTest {
         lb.addPlayers(p1);
         lb.addPlayers(p2);
         lb.addPlayers(p3);
-        JsonWriter tJWriter = new JsonWriter("./data/testWrite3Players.json");
+        JsonWriter tJWriter = new JsonWriter("test write 3 players");
         try {
             tJWriter.open();
         } catch (FileNotFoundException e) {
