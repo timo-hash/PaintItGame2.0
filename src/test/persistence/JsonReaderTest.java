@@ -91,10 +91,6 @@ public class JsonReaderTest extends JsonTest {
     }
 
 
-    @Test
-    public void testAddLeaderboards() {
-
-    }
 
     @Test
     public void testAddPlayer() {
@@ -112,17 +108,42 @@ public class JsonReaderTest extends JsonTest {
         assertEquals(1, testLBEmpty.getIthPlayer(0).getScore());
     }
 
+    @Test
+    public void testAddLeaderboards() {
+        JsonReader reader = new JsonReader("test read add leaderboard");
+        testLB.addPlayers(p1);
+        testLB.addPlayers(p2);
+        testLB.addPlayers(p3);
 
+        JSONObject testJObjectLeaderboard = testLB.toJson();
 
+        reader.addLeaderboards(testLBEmpty, testJObjectLeaderboard);
 
-//    // MODIFIES: lb
-//    // EFFECTS: parses players from JSON object and adds them to LeaderBoard
-//    public void addLeaderboards(Leaderboard lb, JSONObject jsonObject) {
-//        JSONArray jsonArray = jsonObject.getJSONArray("Leaderboard");
-//        for (Object json : jsonArray) {
-//            JSONObject nextPlayer = (JSONObject) json;
-//            addPlayer(lb, nextPlayer);
-//        }
-//    }
+        assertEquals(3, testLBEmpty.numOfPlayers());
+        assertEquals("aa", testLBEmpty.getIthPlayer(0).getName());
+        assertEquals("bb", testLBEmpty.getIthPlayer(1).getName());
+        assertEquals("cc", testLBEmpty.getIthPlayer(2).getName());
+        assertEquals(1, testLBEmpty.getIthPlayer(0).getScore());
+        assertEquals("Empty Leaderboard", testLBEmpty.getName());
+    }
+
+    @Test
+    public void testParseLeaderBoard() {
+        JsonReader reader = new JsonReader("test read parse leaderboard");
+        testLB.addPlayers(p1);
+        testLB.addPlayers(p2);
+        testLB.addPlayers(p3);
+
+        JSONObject testJObjectLeaderboard = testLB.toJson();
+        Leaderboard newLB = reader.parseLeaderBoard(testJObjectLeaderboard);
+
+        assertEquals(3, newLB.numOfPlayers());
+        assertEquals("aa", newLB.getIthPlayer(0).getName());
+        assertEquals("bb", newLB.getIthPlayer(1).getName());
+        assertEquals("cc", newLB.getIthPlayer(2).getName());
+        assertEquals(1, newLB.getIthPlayer(0).getScore());
+        assertEquals("Game Leaderboard", newLB.getName());
+    }
+
 
 }
