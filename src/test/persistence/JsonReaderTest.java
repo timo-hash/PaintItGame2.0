@@ -22,7 +22,6 @@ public class JsonReaderTest extends JsonTest {
     private Player p1;
     private Player p2;
     private Player p3;
-    private JSONObject testJObject;
 
     @BeforeEach
     public void setup() {
@@ -74,21 +73,6 @@ public class JsonReaderTest extends JsonTest {
         }
     }
 
-    @Test
-    public void testReaderFileWith3Players() {
-        JsonReader reader = new JsonReader("test read 3 players");
-        try {
-            Leaderboard lb = reader.read();
-            assertEquals("Test LB", lb.getName());
-            List<Player> players = lb.getPlayers();
-            assertEquals(3, players.size());
-            checkPlayer("a", 1, players.get(0));
-            checkPlayer("b", 2, players.get(1));
-            checkPlayer("c", 3, players.get(2));
-        } catch (IOException e) {
-            fail("Couldn't read from file");
-        }
-    }
 
 
 
@@ -145,5 +129,42 @@ public class JsonReaderTest extends JsonTest {
         assertEquals("Game Leaderboard", newLB.getName());
     }
 
+    @Test
+    public void testReadFileFailed() {
+        JsonReader reader = new JsonReader("test read parse leaderboard");
+        try {
+            reader.readFile("no such file");
+            fail("Couldn't read from file");
+        } catch (IOException e) {
+            // good
+        }
+
+    }
+
+    @Test
+    public void testReadFileSuccess() {
+        JsonReader reader = new JsonReader("test read parse leaderboard");
+        try {
+            reader.readFile("test read 3 players");
+        } catch (IOException e) {
+            fail("Exception should not be thrown");
+        }
+    }
+
+    @Test
+    public void testReadFileWith3Players() {
+        JsonReader reader = new JsonReader("test read 3 players");
+        try {
+            Leaderboard testLB = reader.read();
+            assertEquals("Test LB", testLB.getName());
+            List<Player> players = testLB.getPlayers();
+            assertEquals(3, players.size());
+            checkPlayer("a", 1, players.get(0));
+            checkPlayer("b", 2, players.get(1));
+            checkPlayer("c", 3, players.get(2));
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+    }
 
 }
