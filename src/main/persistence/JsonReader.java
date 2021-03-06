@@ -59,7 +59,7 @@ public class JsonReader {
 
     // MODIFIES: lb
     // EFFECTS: parses player from JSON object and adds it to LeaderBoard
-    private void addPlayer(Leaderboard lb, JSONObject jsonObject) {
+    public void addPlayer(Leaderboard lb, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int score = jsonObject.getInt("score");
         Player player = new Player(name, score);

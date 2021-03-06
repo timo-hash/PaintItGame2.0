@@ -12,11 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LeaderboardTest {
 
 
-    Leaderboard testLB;
-    Grid gridTest;
-    Player p1;
-    Player p2;
-    Player p3;
+    private Leaderboard testLB;
+    private Player p1;
+    private Player p2;
+    private Player p3;
 
     @BeforeEach
     public void setup() {

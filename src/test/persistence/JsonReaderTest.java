@@ -2,18 +2,39 @@ package persistence;
 
 import model.Leaderboard;
 import model.Player;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonReaderTest extends JsonTest {
 
     private String testSource;
+
+    private Leaderboard testLB;
+    private Leaderboard testLBEmpty;
+    private Player p1;
+    private Player p2;
+    private Player p3;
+    private JSONObject testJObject;
+
+    @BeforeEach
+    public void setup() {
+
+        testLB = new Leaderboard("Game Leaderboard");
+        testLBEmpty = new Leaderboard("Empty Leaderboard");
+        p1 = new Player("aa", 1);
+        p2 = new Player("bb", 2);
+        p3 = new Player("cc", 3);
+
+
+    }
 
     @Test
     void testReaderNonExistentFile() {
@@ -54,7 +75,7 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderFileWith3Players() {
+    public void testReaderFileWith3Players() {
         JsonReader reader = new JsonReader("test read 3 players");
         try {
             Leaderboard lb = reader.read();
@@ -67,8 +88,41 @@ public class JsonReaderTest extends JsonTest {
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
+    }
 
+
+    @Test
+    public void testAddLeaderboards() {
 
     }
+
+    @Test
+    public void testAddPlayer() {
+        JsonReader reader = new JsonReader("test read add player");
+        testLB.addPlayers(p1);
+
+        JSONArray testArray = new JSONArray();
+        testArray = testLB.playersToJson();
+
+        JSONObject testJObject = testLB.toJson();
+        reader.addPlayer(testLBEmpty, (JSONObject) testArray.get(0));
+
+        assertEquals(1, testLBEmpty.numOfPlayers());
+        assertEquals("aa", testLBEmpty.getIthPlayer(0).getName());
+        assertEquals(1, testLBEmpty.getIthPlayer(0).getScore());
+    }
+
+
+
+
+//    // MODIFIES: lb
+//    // EFFECTS: parses players from JSON object and adds them to LeaderBoard
+//    public void addLeaderboards(Leaderboard lb, JSONObject jsonObject) {
+//        JSONArray jsonArray = jsonObject.getJSONArray("Leaderboard");
+//        for (Object json : jsonArray) {
+//            JSONObject nextPlayer = (JSONObject) json;
+//            addPlayer(lb, nextPlayer);
+//        }
+//    }
 
 }
