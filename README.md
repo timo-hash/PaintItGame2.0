@@ -32,4 +32,4 @@ others to play.*
 - As a user, I want to be able to be able to try again
 
 - As a user, I want to be able to save my leaderboard scores to file
-  As a user, I want to be able to be able to load my leaderboard scores from file 
+- As a user, I want to be able to load my leaderboard scores from file when game starts 
