@@ -145,7 +145,7 @@ public class JsonReaderTest extends JsonTest {
     public void testReadFileSuccess() {
         JsonReader reader = new JsonReader("test read parse leaderboard");
         try {
-            reader.readFile("test read 3 players");
+            reader.readFile("./data/testRead3players.txt");
         } catch (IOException e) {
             fail("Exception should not be thrown");
         }
@@ -153,7 +153,7 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     public void testReadFileWith3Players() {
-        JsonReader reader = new JsonReader("test read 3 players");
+        JsonReader reader = new JsonReader("./data/testRead3players.txt");
         try {
             Leaderboard testLB = reader.read();
             assertEquals("Test LB", testLB.getName());
@@ -167,4 +167,51 @@ public class JsonReaderTest extends JsonTest {
         }
     }
 
+    @Test
+    public void testReadObjects() {
+        JsonReader reader = new JsonReader("./data/testRead3players.txt");
+        try {
+            reader.read();
+
+            String jsonData = reader.readFile("./data/testRead3players.txt");
+            JSONObject testJObject = new JSONObject(jsonData);
+
+            assertEquals("Test LB", testJObject.getString("name"));
+            assertEquals(2, testJObject.length());
+            assertEquals(1, testJObject.getJSONArray("Leaderboard").getJSONObject(0).get("score"));
+            assertEquals(2, testJObject.getJSONArray("Leaderboard").getJSONObject(1).get("score"));
+            assertEquals(3, testJObject.getJSONArray("Leaderboard").getJSONObject(2).get("score"));
+            assertEquals("a", testJObject.getJSONArray("Leaderboard").getJSONObject(0).get("name"));
+            assertEquals("b", testJObject.getJSONArray("Leaderboard").getJSONObject(1).get("name"));
+            assertEquals("c", testJObject.getJSONArray("Leaderboard").getJSONObject(2).get("name"));
+
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+
+    }
+
+    @Test
+    public void testReadMethod() {
+        JsonReader reader = new JsonReader("./data/testRead3players.txt");
+        try {
+            assertEquals("Test LB", reader.read().getName());
+            assertEquals("a", reader.read().getIthPlayer(0).getName());
+            assertEquals("b", reader.read().getIthPlayer(1).getName());
+            assertEquals("c", reader.read().getIthPlayer(2).getName());
+
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+
+    }
+
+//
+//    // EFFECTS: reads LeaderBoard from file and returns it;
+//    // throws IOException if an error occurs reading data from file
+//    public Leaderboard read() throws IOException {
+//        String jsonData = readFile(source);
+//        JSONObject jsonObject = new JSONObject(jsonData);
+//        return parseLeaderBoard(jsonObject);
+//    }
 }
