@@ -1,5 +1,9 @@
 package model;
 
+/*
+ * Represents the square the player controls
+ */
+
 public class PlayerSquare {
 
     private int xpos;

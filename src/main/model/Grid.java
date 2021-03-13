@@ -1,19 +1,24 @@
 package model;
 
+/*
+ * Represents the screen in terms of a grid
+ */
 
 public class Grid {
 
-    private int gridSize;  // works better if it's an odd number
+    private int gridSize = 5;  // works better if it's an odd number
     private boolean[][] gameScreen;
 
-    public Grid(int gridSize) {
-        this.gridSize = gridSize;
-    }
 
     // getter
     // EFFECTS: return the field gridSize
     public int getGridSize() {
         return gridSize;
+    }
+
+    // setter
+    public void setGridSize(int gridSize) {
+        this.gridSize = gridSize;
     }
 
 

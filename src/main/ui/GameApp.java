@@ -11,6 +11,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/*
+ * Represents the game application
+ */
+
 public class GameApp {
 
     private Scanner input;
@@ -25,7 +29,6 @@ public class GameApp {
 
     boolean gameStillGoing = true;
     int trueCounter = 1;
-    int gridSize = 5;
 
 
     // EFFECTS: runs the game application
@@ -77,8 +80,8 @@ public class GameApp {
     // MODIFIES: this
     // EFFECTS: initializes grid, playerSquare and input
     private void init() {
-        game = new Grid(gridSize);
-        ps = new PlayerSquare(gridSize);
+        game = new Grid();
+        ps = new PlayerSquare(game.getGridSize());
         input = new Scanner(System.in);
 
         displayControl();
@@ -288,6 +291,10 @@ public class GameApp {
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
+    }
+
+    public PlayerSquare getPlayerSquare() {
+        return ps;
     }
 
 

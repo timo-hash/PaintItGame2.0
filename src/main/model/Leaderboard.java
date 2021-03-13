@@ -11,6 +11,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/*
+ * Represents a leaderboard to keep track of names and scores of players
+ */
+
 public class Leaderboard implements Writable {
 
     private ArrayList<Player> players;

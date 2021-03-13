@@ -3,6 +3,10 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+/*
+ * Represents a information of the player
+ */
+
 public class Player implements Writable {
     private String name;
     private int score;

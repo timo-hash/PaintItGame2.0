@@ -13,8 +13,9 @@ class GridTest {
 
     @BeforeEach
     public void setup () {
-        testGrid3 = new Grid(3);
-        testGrid5 = new Grid(5);
+        testGrid3 = new Grid();
+        testGrid3.setGridSize(3);
+        testGrid5 = new Grid();
 
         testGrid3.makeGrid();
         testGrid5.makeGrid();
