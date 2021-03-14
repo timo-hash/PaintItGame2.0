@@ -12,7 +12,7 @@ import java.awt.*;
  */
 public class GamePanel extends JPanel {
 
-    private PIGame game;
+    private PIGame guiGame;
     private Grid grid = new Grid();
     private ScreenSize screenSize = new ScreenSize();
     private int xpos = 0;
@@ -21,18 +21,24 @@ public class GamePanel extends JPanel {
     private int height = screenSize.getScreenHeight();
     private int unitSize = width / grid.getGridSize();
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        drawGame(g);
-    }
 
     // Constructs a game panel
     // EFFECTS:  sets size and background colour of panel, and place buttons inside panel
-    public GamePanel() {
-        //this.game = game;
+    public GamePanel(PIGame guiGame) {
         setBounds(xpos, ypos,  width, height);
         setBackground(Color.MAGENTA);
+        this.guiGame = guiGame;
+    }
 
+    public GamePanel() {
+        setBounds(xpos, ypos,  width, height);
+        setBackground(Color.MAGENTA);
+        this.guiGame = new PIGame();
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        drawGame(g);
     }
 
     // Draws the game
@@ -40,9 +46,9 @@ public class GamePanel extends JPanel {
     // effects:  draws the game onto g
     private void drawGame(Graphics g) {
         drawGrid(g);
+        drawStarterSquare(g);
         drawPlayerSquare(g);
-        //drawTrail(g);
-
+        drawTrail(g);
     }
 
 
@@ -53,7 +59,7 @@ public class GamePanel extends JPanel {
         }
     }
 
-    public void drawPlayerSquare(Graphics g) {
+    public void drawStarterSquare(Graphics g) {
         int squareX = (grid.getGridSize() / 2) * unitSize;
         int squareY = (grid.getGridSize() / 2) * unitSize;
 
@@ -61,12 +67,24 @@ public class GamePanel extends JPanel {
         g.fillRect(squareX, squareY, unitSize, unitSize);
     }
 
-//    public void drawTrail(Graphics g) {
-//        PlayerSquare ps = game.getPlayerSquare();
-//        int squareX = ps.getCurrentXPos() * unitSize;
-//        int squareY = ps.getCurrentYPos() * unitSize;
-//
-//        g.setColor(Color.BLACK);
-//        g.fillRect(squareX, squareY, unitSize, unitSize);
-//    }
+    public void drawPlayerSquare(Graphics g) {
+        PlayerSquare ps = guiGame.getPlayerSquare();
+        int squareX = ps.getCurrentXPos() * unitSize;
+        int squareY = ps.getCurrentYPos() * unitSize;
+
+        g.setColor(Color.BLACK);
+        g.fillRect(squareX, squareY, unitSize, unitSize);
+    }
+
+    public void drawTrail(Graphics g) {
+        for (int i = 0; i < grid.getGridSize(); i++) {
+            for (int j = 0; j < grid.getGridSize(); j++) {
+                if (guiGame.getGrid().gridUnitValue(i, j)) {
+                    g.setColor(Color.BLACK);
+                    g.fillRect(i * unitSize, j * unitSize, unitSize, unitSize);
+                }
+            }
+        }
+    }
+
 }

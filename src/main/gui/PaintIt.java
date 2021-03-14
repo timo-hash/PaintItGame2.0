@@ -3,6 +3,7 @@ package gui;
 import ui.GameApp;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,7 +12,7 @@ public class PaintIt extends JFrame implements ActionListener {
     private ScreenSize screenSize;
     private ControlPanel cp;
     private GamePanel gp;
-    private PIGame game;
+    private PIGame guiGame;
 
     public static void main(String[] args) {
         new PaintIt();
@@ -25,13 +26,16 @@ public class PaintIt extends JFrame implements ActionListener {
         setSize(screenSize.getScreenWidth(), screenSize.getScreenHeight());
         setVisible(true);
 
-
+        guiGame = new PIGame();
         cp = new ControlPanel();
+        gp = new GamePanel(guiGame);
+
         add(cp);
         setupActionListeners();
 
-        gp = new GamePanel();
         add(gp);
+
+        guiGame.startGame();
 
 
 
@@ -48,14 +52,16 @@ public class PaintIt extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == cp.getUpButton()) {
-            System.out.println("up");
+            guiGame.moveUp();
         } else if (e.getSource() == cp.getDownButton()) {
-            System.out.println("d");
+            guiGame.moveDown();
         } else if (e.getSource() == cp.getLeftButton()) {
-            System.out.println("l");
+            guiGame.moveLeft();
         } else if (e.getSource() == cp.getRightButton()) {
-            System.out.println("r");
+            guiGame.moveRight();
         }
+
+        gp.repaint();
     }
 
 }

@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class ControlPanel extends JPanel {
 
-    //private GameApp game;
+    //private PIGame guiGame;
     private JButton upButton;
     private JButton downButton;
     private JButton leftButton;
@@ -25,8 +25,17 @@ public class ControlPanel extends JPanel {
     private int centerY = (height - buttonDimension) / 2;
 
 
-    //getters
+    // Constructs a control panel
+    // EFFECTS:  sets size and background colour of panel, and place buttons inside panel
+    public ControlPanel() {
+        //this.guiGame = guiGame;
+        setBounds(xpos, ypos, width, height);
+        setBackground(Color.LIGHT_GRAY);
+        createDirectionButtons();
 
+    }
+
+    //getters
     public JButton getUpButton() {
         return upButton;
     }
@@ -43,15 +52,6 @@ public class ControlPanel extends JPanel {
         return rightButton;
     }
 
-    // Constructs a control panel
-    // EFFECTS:  sets size and background colour of panel, and place buttons inside panel
-    public ControlPanel() {
-        //this.game = game;
-        setBounds(xpos, ypos, width, height);
-        setBackground(Color.LIGHT_GRAY);
-        createDirectionButtons();
-
-    }
 
     public void createDirectionButtons() {
         createUpButton();
