@@ -9,6 +9,8 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PIGame {
@@ -23,6 +25,8 @@ public class PIGame {
 
     boolean gameStillGoing = true;
     int trueCounter = 1;
+    boolean continuePlaying = true;
+    private ArrayList<String> leaderboardList;
 
 
     // EFFECTS: runs the game application
@@ -30,39 +34,27 @@ public class PIGame {
         leaderboard = new Leaderboard("Paint It Leaderboard");
         game = new Grid();
         ps = new PlayerSquare(game.getGridSize());
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         game.makeGrid();
-//        jsonWriter = new JsonWriter(JSON_STORE);
-//        jsonReader = new JsonReader(JSON_STORE);
-//        loadLeaderboard();
+        loadLeaderboard();
     }
 
-    // format is similar to TellerApp
-    public void startGame() {
-
-
-        while (gameStillGoing) {
-            checkNoMoreMoves();
-        }
-
-        gameOver();
-        recordNameAndScore();
-
-//        while (!(command.equals("q") || command.equals("r"))) {
-//            displayEndGameControl();
-//            command = input.next();
-//            command = command.toLowerCase();
-//
-//            saveLoadPrintOptions(command);
-//        }
-//        processEndGameOptions(command);
+    //getter
+    public boolean getGameStillGoing() {
+        return gameStillGoing;
     }
+
 
     // MODIFIES: this
     // EFFECTS: check if the grid is filled up and no more moves are possible
-    private void checkNoMoreMoves() {
+    public boolean checkNoMoreMoves() {
         if (trueCounter == game.gridArea()) {
             gameStillGoing = false;
+            return false;
         }
+
+        return true;
     }
 
 
@@ -130,20 +122,13 @@ public class PIGame {
 
 
     // EFFECTS: print game over and player score on console
-    public void gameOver() {
-        System.out.println();
-        System.out.println("Game Over");
-        System.out.println("You scored " + trueCounter + " out of " + game.gridArea() + "!!");
-        System.out.println();
-
+    public String gameOver() {
+        return "You scored " + trueCounter + " out of " + game.gridArea() + "!!";
     }
 
     // MODIFIES: Leaderboard
     // EFFECTS: record name and score of player to Leaderboard
-    public void recordNameAndScore() {
-        System.out.println("Enter your name below:");
-        Scanner name = new Scanner(System.in);
-        String playerName = name.next();
+    public void recordNameAndScore(String playerName) {
         player = new Player(playerName, trueCounter);
 
         leaderboard.addPlayers(player);
@@ -151,13 +136,14 @@ public class PIGame {
     }
 
 
-    // EFFECTS: print leaderboard containing name and score on console
-    public void printLeaderboard() {
-        System.out.println("\nLeaderboard");
+    public void saveLeaderboardToStringArray() {
+        leaderboardList = new ArrayList<>();
         for (int i = 0; i < leaderboard.numOfPlayers(); i++) {
-            System.out.println(leaderboard.getIthPlayer(i).getName() + " scored "
+            String leaderboardScoreMessage = leaderboard.getIthPlayer(i).getName() + " scored "
                     + leaderboard.getIthPlayer(i).getScore()
-                    + " points out of " + game.gridArea());
+                    + " points out of " + game.gridArea();
+
+            leaderboardList.add(leaderboardScoreMessage);
 
         }
     }
@@ -168,44 +154,15 @@ public class PIGame {
     public void restart() {
         gameStillGoing = true;
         trueCounter = 1;
-        //startGame();
-    }
-
-    // MODIFIES: this, jsonWriter, jsonReader
-    // EFFECTS: process save, load, and print user inputs
-    private void saveLoadPrintOptions(String command) {
-        if (command.equals("s")) {
-            saveLeaderboard();
-        } else if (command.equals("p")) {
-            printLeaderboard();
-        }
-    }
-
-
-    // MODIFIES: this
-    // EFFECTS: processes end game user input
-    public void processEndGameOptions(String command) {
-        if (command.equals("q")) {
-            System.out.println("\nPlay again next time!");
-        } else if (command.equals("r")) {
-            restart();
-        } else {
-            System.out.println("Selection not valid. Please select again.");
-        }
-    }
-
-    // EFFECTS: displays endgame options for the player to use
-    public void displayEndGameControl() {
-        System.out.println("\nTo quit, press q");
-        System.out.println("To try again, press r");
-        System.out.println("To save your score to the leaderboard, press s");
-        System.out.println("To print out score from leaderboard, press p");
+        game = new Grid();
+        ps = new PlayerSquare(game.getGridSize());
+        game.makeGrid();
     }
 
 
 
     // EFFECTS: saves the leaderboard to file
-    private void saveLeaderboard() {
+    public void saveLeaderboard() {
         try {
             jsonWriter.open();
             jsonWriter.write(leaderboard);
@@ -221,7 +178,6 @@ public class PIGame {
     private void loadLeaderboard() {
         try {
             leaderboard = jsonReader.read();
-            System.out.println("Loaded " + leaderboard.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
@@ -234,4 +190,21 @@ public class PIGame {
     public Grid getGrid() {
         return game;
     }
+
+    public Leaderboard getLeaderboard() {
+        return leaderboard;
+    }
+
+    public ArrayList<String> getLeaderboardList() {
+        return this.leaderboardList;
+    }
+
+    public boolean getContinuePlaying() {
+        return this.continuePlaying;
+    }
+
+    public void setContinuePlaying(boolean value) {
+        this.continuePlaying = value;
+    }
+
 }

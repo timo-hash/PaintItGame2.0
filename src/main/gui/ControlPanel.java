@@ -1,15 +1,10 @@
 package gui;
 
-import ui.GameApp;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ControlPanel extends JPanel {
 
-    //private PIGame guiGame;
     private JButton upButton;
     private JButton downButton;
     private JButton leftButton;
@@ -28,11 +23,9 @@ public class ControlPanel extends JPanel {
     // Constructs a control panel
     // EFFECTS:  sets size and background colour of panel, and place buttons inside panel
     public ControlPanel() {
-        //this.guiGame = guiGame;
         setBounds(xpos, ypos, width, height);
         setBackground(Color.LIGHT_GRAY);
         createDirectionButtons();
-
     }
 
     //getters

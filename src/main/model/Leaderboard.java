@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /*
- * Represents a leaderboard to keep track of names and scores of players
+ * Represents a leaderboard to keep track of a list of Player
  */
 
 public class Leaderboard implements Writable {

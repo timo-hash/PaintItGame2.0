@@ -30,12 +30,7 @@ public class GamePanel extends JPanel {
         this.guiGame = guiGame;
     }
 
-    public GamePanel() {
-        setBounds(xpos, ypos,  width, height);
-        setBackground(Color.MAGENTA);
-        this.guiGame = new PIGame();
-    }
-
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawGame(g);
