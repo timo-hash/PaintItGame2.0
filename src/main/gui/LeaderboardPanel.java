@@ -1,11 +1,12 @@
 package gui;
 
-import org.junit.platform.commons.util.BlacklistedExceptions;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/*
+ * The panel in which the leaderboard is rendered.
+ */
 public class LeaderboardPanel extends JPanel {
 
     private PIGame guiGame;
@@ -15,6 +16,8 @@ public class LeaderboardPanel extends JPanel {
     private int fontSize = 14;
     private int lbFirstLineYCoord = 50;
 
+    // Constructs a game panel
+    // EFFECTS: sets size of the panel; add leaderboard scores to the panel
     public LeaderboardPanel(PIGame guiGame) {
         this.guiGame = guiGame;
         this.leaderboardList = guiGame.getLeaderboardList();
@@ -28,6 +31,9 @@ public class LeaderboardPanel extends JPanel {
         drawLeaderboard(g);
     }
 
+    // Draws the leaderboard
+    // modifies: g
+    // effects:  draws the leaderboard onto g
     private void drawLeaderboard(Graphics g) {
         g.setFont(new Font("TimesRoman", Font.BOLD, fontSize));
         g.drawString("LEADERBOARD", 50, 20);

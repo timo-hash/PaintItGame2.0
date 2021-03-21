@@ -1,12 +1,15 @@
 package gui;
 
-import ui.GameApp;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/*
+ * Represents the main window in which the paint it game is played
+ */
 public class PaintIt extends JFrame {
 
     private ScreenSize screenSize;
@@ -18,6 +21,9 @@ public class PaintIt extends JFrame {
     private StopGamePanel stopGamePanel;
 
 
+    /*
+     * Play the game
+     */
     public static void main(String[] args) {
         new PaintIt();
     }
@@ -36,6 +42,8 @@ public class PaintIt extends JFrame {
         startGame();
     }
 
+    // Initializes variables and objects to start game
+    // effects: initializes objects to begin a new game and add panels to the Jframe
     private void init() {
         guiGame = new PIGame();
         cp = new ControlPanel();
@@ -50,16 +58,19 @@ public class PaintIt extends JFrame {
         gp.repaint();
     }
 
+    // check user input and update the game
+    // effects: update the game according to user button inputs
     public void startGame() {
         checkUpButton();
         checkDownButton();
         checkLeftButton();
         checkRightButton();
-
     }
 
 
-
+    /*
+     * Action listeners to respond to button events
+     */
     private void checkUpButton() {
         cp.getUpButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -100,8 +111,9 @@ public class PaintIt extends JFrame {
         });
     }
 
-
-
+    // check if game is over
+    // modifies: this
+    // effects: initiate game over options if game is over
     public void checkGameOver() {
         if (!guiGame.getGameStillGoing() || !guiGame.checkNoMoreMoves()) {
             goop = new GameOverOptionPane(guiGame.gameOver());
@@ -116,6 +128,9 @@ public class PaintIt extends JFrame {
         }
     }
 
+    // process save, try again, or quit inputs from the user
+    // modifies: guiGame
+    // effects: process end game user input options
     private void processEndGameOptions() {
         if (egop.getResponseValue() == 0) {
             guiGame.saveLeaderboard();
@@ -129,6 +144,9 @@ public class PaintIt extends JFrame {
         }
     }
 
+    // end the game
+    // modifies: cp
+    // effects: overlay the frame with game over text; disable all buttons
     public void stopGame() {
         stopGamePanel.setVisible(true);
         cp.getUpButton().setEnabled(false);

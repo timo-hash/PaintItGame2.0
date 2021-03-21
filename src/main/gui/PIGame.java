@@ -10,9 +10,11 @@ import persistence.JsonWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
+
+/*
+ * Represents a paint it game.
+ */
 public class PIGame {
     private PlayerSquare ps;
     private Player player;
@@ -45,6 +47,31 @@ public class PIGame {
         return gameStillGoing;
     }
 
+    public PlayerSquare getPlayerSquare() {
+        return ps;
+    }
+
+    public Grid getGrid() {
+        return game;
+    }
+
+    public Leaderboard getLeaderboard() {
+        return leaderboard;
+    }
+
+    public ArrayList<String> getLeaderboardList() {
+        return this.leaderboardList;
+    }
+
+    public boolean getContinuePlaying() {
+        return this.continuePlaying;
+    }
+
+    public void setContinuePlaying(boolean value) {
+        this.continuePlaying = value;
+    }
+
+
 
     // MODIFIES: this
     // EFFECTS: check if the grid is filled up and no more moves are possible
@@ -53,7 +80,6 @@ public class PIGame {
             gameStillGoing = false;
             return false;
         }
-
         return true;
     }
 
@@ -127,7 +153,7 @@ public class PIGame {
     }
 
     // MODIFIES: Leaderboard
-    // EFFECTS: record name and score of player to Leaderboard
+    // EFFECTS: record name and score of player to Leaderboard; sort scores in descending order
     public void recordNameAndScore(String playerName) {
         player = new Player(playerName, trueCounter);
 
@@ -136,6 +162,7 @@ public class PIGame {
     }
 
 
+    // EFFECTS: convert elements in the leaderboard array to String
     public void saveLeaderboardToStringArray() {
         leaderboardList = new ArrayList<>();
         for (int i = 0; i < leaderboard.numOfPlayers(); i++) {
@@ -181,30 +208,6 @@ public class PIGame {
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
-    }
-
-    public PlayerSquare getPlayerSquare() {
-        return ps;
-    }
-
-    public Grid getGrid() {
-        return game;
-    }
-
-    public Leaderboard getLeaderboard() {
-        return leaderboard;
-    }
-
-    public ArrayList<String> getLeaderboardList() {
-        return this.leaderboardList;
-    }
-
-    public boolean getContinuePlaying() {
-        return this.continuePlaying;
-    }
-
-    public void setContinuePlaying(boolean value) {
-        this.continuePlaying = value;
     }
 
 }

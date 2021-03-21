@@ -3,6 +3,10 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
+
+/*
+ * The panel in which the control buttons are rendered.
+ */
 public class ControlPanel extends JPanel {
 
     private JButton upButton;
@@ -21,7 +25,7 @@ public class ControlPanel extends JPanel {
 
 
     // Constructs a control panel
-    // EFFECTS:  sets size and background colour of panel, and place buttons inside panel
+    // EFFECTS: sets size and background colour of panel, and place buttons inside panel
     public ControlPanel() {
         setBounds(xpos, ypos, width, height);
         setBackground(Color.LIGHT_GRAY);
@@ -46,6 +50,7 @@ public class ControlPanel extends JPanel {
     }
 
 
+    // effects: create all 4 directional buttons and add them to this panel
     public void createDirectionButtons() {
         createUpButton();
         createDownButton();
@@ -53,28 +58,31 @@ public class ControlPanel extends JPanel {
         createRightButton();
     }
 
+    // effects: create up button and add the button to this panel
     public void createUpButton() {
         upButton = new JButton("UP");
-        upButton.setBounds(centerX, centerY - buttonDimension, buttonDimension,buttonDimension);
+        upButton.setBounds(centerX, centerY - buttonDimension, buttonDimension, buttonDimension);
         this.add(upButton);
     }
 
-
+    // effects: create down button and add the button to this panel
     public void createDownButton() {
         downButton = new JButton("DOWN");
-        downButton.setBounds(centerX, centerY + buttonDimension, buttonDimension,buttonDimension);
+        downButton.setBounds(centerX, centerY + buttonDimension, buttonDimension, buttonDimension);
         this.add(downButton);
     }
 
+    // effects: create left button and add the button to this panel
     public void createLeftButton() {
         leftButton = new JButton("LEFT");
-        leftButton.setBounds(centerX - buttonDimension, centerY, buttonDimension,buttonDimension);
+        leftButton.setBounds(centerX - buttonDimension, centerY, buttonDimension, buttonDimension);
         this.add(leftButton);
     }
 
+    // effects: create right button and add the button to this panel
     public void createRightButton() {
         rightButton = new JButton("RIGHT");
-        rightButton.setBounds(centerX + buttonDimension, centerY, buttonDimension,buttonDimension);
+        rightButton.setBounds(centerX + buttonDimension, centerY, buttonDimension, buttonDimension);
         this.add(rightButton);
     }
 

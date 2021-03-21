@@ -1,9 +1,10 @@
 package gui;
 
-import model.Player;
-
 import javax.swing.*;
 
+/*
+ * The pop up option pane records user name.
+ */
 public class GameOverOptionPane extends JOptionPane {
 
     private JLabel text1;
@@ -11,6 +12,8 @@ public class GameOverOptionPane extends JOptionPane {
     private String playerNameInput;
     private JPanel jpanel;
 
+    // Constructs a game over option pane
+    // effects: display current user score and prompt user to input name
     public GameOverOptionPane(String scoreMessage) {
         text1 = new JLabel(scoreMessage);
         text2 = new JLabel("Enter Your Name");

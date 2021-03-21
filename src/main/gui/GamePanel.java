@@ -47,6 +47,9 @@ public class GamePanel extends JPanel {
     }
 
 
+    // Draws the grid
+    // modifies: g
+    // effects:  draws the grid onto g
     public void drawGrid(Graphics g) {
         for (int i = 0; i < grid.getGridSize(); i++) {
             g.drawLine(i * unitSize, 0, i * unitSize, height);
@@ -54,6 +57,9 @@ public class GamePanel extends JPanel {
         }
     }
 
+    // Draws the square where user starts moving
+    // modifies: g
+    // effects:  draws the starting square onto g
     public void drawStarterSquare(Graphics g) {
         int squareX = (grid.getGridSize() / 2) * unitSize;
         int squareY = (grid.getGridSize() / 2) * unitSize;
@@ -62,6 +68,9 @@ public class GamePanel extends JPanel {
         g.fillRect(squareX, squareY, unitSize, unitSize);
     }
 
+    // Draws the square the player controls
+    // modifies: g
+    // effects:  draws the current square of the user onto g
     public void drawPlayerSquare(Graphics g) {
         PlayerSquare ps = guiGame.getPlayerSquare();
         int squareX = ps.getCurrentXPos() * unitSize;
@@ -71,6 +80,9 @@ public class GamePanel extends JPanel {
         g.fillRect(squareX, squareY, unitSize, unitSize);
     }
 
+    // Draws the squares where player has already passed
+    // modifies: g
+    // effects:  draws the squares where the user has previously been onto g
     public void drawTrail(Graphics g) {
         for (int i = 0; i < grid.getGridSize(); i++) {
             for (int j = 0; j < grid.getGridSize(); j++) {

@@ -3,6 +3,9 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
+/*
+ * The panel in which the game over screen is rendered.
+ */
 public class StopGamePanel extends JPanel {
 
     private ScreenSize screenSize = new ScreenSize();
@@ -12,11 +15,16 @@ public class StopGamePanel extends JPanel {
     private int width = screenSize.getScreenWidth();
     private int height = screenSize.getScreenHeight();
 
+    // Constructs a game over panel
+    // EFFECTS:  sets size and position of panel with GAME OVER text
     public StopGamePanel() {
         setBounds(xpos, ypos, width, height);
         overlayGameOverText();
     }
 
+
+    // Draws the squares where player has already passed
+    // effects:  set size, font, color, and position of GAME OVER text; add the label to the panel
     private void overlayGameOverText() {
         JLabel gameOverText = new JLabel("GAME OVER", JLabel.CENTER);
         gameOverText.setSize(width, height);

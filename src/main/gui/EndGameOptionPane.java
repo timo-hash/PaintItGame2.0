@@ -1,9 +1,11 @@
 package gui;
 
-import model.Leaderboard;
-
 import javax.swing.*;
-import java.awt.*;
+
+
+/*
+ * The pop up option pane that allows user to save data, try again, or quit.
+ */
 
 public class EndGameOptionPane extends JOptionPane {
 
@@ -12,6 +14,9 @@ public class EndGameOptionPane extends JOptionPane {
 
     private int responseValue;
 
+
+    // Constructs an end game option pane
+    // effects: setup option pane to record user input; display leaderboard
     public EndGameOptionPane(PIGame guiGame) {
         this.guiGame = guiGame;
         lbp = new LeaderboardPanel(this.guiGame);
@@ -30,6 +35,7 @@ public class EndGameOptionPane extends JOptionPane {
 
     }
 
+    // getters
     public int getResponseValue() {
         return this.responseValue;
     }
