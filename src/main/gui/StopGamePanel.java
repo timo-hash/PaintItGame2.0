@@ -26,12 +26,20 @@ public class StopGamePanel extends JPanel {
     // Draws the squares where player has already passed
     // effects:  set size, font, color, and position of GAME OVER text; add the label to the panel
     private void overlayGameOverText() {
-        JLabel gameOverText = new JLabel("GAME OVER", JLabel.CENTER);
-        gameOverText.setSize(width, height);
-        gameOverText.setForeground(Color.WHITE);
-        gameOverText.setVerticalAlignment(JLabel.CENTER);
-        gameOverText.setFont(new Font("TimesRoman", Font.BOLD, 100));
-        this.add(gameOverText);
+//        JLabel gameOverText = new JLabel("GAME OVER", JLabel.CENTER);
+//        gameOverText.setSize(width, height);
+//        gameOverText.setForeground(Color.WHITE);
+//        gameOverText.setVerticalAlignment(JLabel.CENTER);
+//        gameOverText.setFont(new Font("TimesRoman", Font.BOLD, 100));
+//        this.add(gameOverText);
+
+        ImageIcon gameOverIcon = new ImageIcon("data/GameOver.jpg");
+        JLabel gameOverLabel = new JLabel(gameOverIcon);
+        gameOverLabel.setSize(width, height);
+        gameOverLabel.setForeground(Color.WHITE);
+        gameOverLabel.setVerticalAlignment(JLabel.CENTER);
+        this.add(gameOverLabel);
+
     }
 
     @Override
