@@ -34,6 +34,16 @@ others to play.*
 - As a user, I want to be able to save my leaderboard scores to file
 - As a user, I want to be able to load my leaderboard scores from file when game starts 
 
-## Java Construct: Robustness
-Within the Grid class, an exception will be thrown by setGridSize(int gridSize) method if the given size is too small 
+## Phase 4: Task 2
+**Java Construct: Robustness**
+- Within the Grid class, an exception will be thrown by setGridSize(int gridSize) method if the given size is too small 
 or negative.
+
+## Phase 4: Task 3
+**Possible Refactoring**
+- Could abstract out the duplicated code in check button methods (i.e. checkUpButton(), checkDownButton(),
+ checkLeftButton(), checkRightButton()) of PaintIt Class.
+ - Could have some GUI classes extend ScreenSize and directly inherit the game screen size width and height rather
+ than having an association relationship.
+ - Could reduce duplication when creating a new Grid class. Instead of instantiating and setting grid size separately,
+ the set grid size method can be placed inside the constructor.
