@@ -13,13 +13,12 @@ import java.awt.*;
 public class GamePanel extends JPanel {
 
     private PIGame guiGame;
-    private Grid grid = new Grid();
     private ScreenSize screenSize = new ScreenSize();
     private int xpos = 0;
     private int ypos = xpos;
     private int width = (screenSize.getScreenWidth() / 2);
     private int height = screenSize.getScreenHeight();
-    private int unitSize = width / grid.getGridSize();
+    private int unitSize;
 
 
     // Constructs a game panel
@@ -28,6 +27,7 @@ public class GamePanel extends JPanel {
         setBounds(xpos, ypos,  width, height);
         setBackground(Color.MAGENTA);
         this.guiGame = guiGame;
+        this.unitSize = width / guiGame.getGrid().getGridSize();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class GamePanel extends JPanel {
     // modifies: g
     // effects:  draws the grid onto g
     public void drawGrid(Graphics g) {
-        for (int i = 0; i < grid.getGridSize(); i++) {
+        for (int i = 0; i < guiGame.getGrid().getGridSize(); i++) {
             g.drawLine(i * unitSize, 0, i * unitSize, height);
             g.drawLine(0, i * unitSize, width, i * unitSize);
         }
@@ -61,8 +61,8 @@ public class GamePanel extends JPanel {
     // modifies: g
     // effects:  draws the starting square onto g
     public void drawStarterSquare(Graphics g) {
-        int squareX = (grid.getGridSize() / 2) * unitSize;
-        int squareY = (grid.getGridSize() / 2) * unitSize;
+        int squareX = (guiGame.getGrid().getGridSize() / 2) * unitSize;
+        int squareY = (guiGame.getGrid().getGridSize() / 2) * unitSize;
 
         g.setColor(Color.BLACK);
         g.fillRect(squareX, squareY, unitSize, unitSize);
@@ -84,8 +84,8 @@ public class GamePanel extends JPanel {
     // modifies: g
     // effects:  draws the squares where the user has previously been onto g
     public void drawTrail(Graphics g) {
-        for (int i = 0; i < grid.getGridSize(); i++) {
-            for (int j = 0; j < grid.getGridSize(); j++) {
+        for (int i = 0; i < guiGame.getGrid().getGridSize(); i++) {
+            for (int j = 0; j < guiGame.getGrid().getGridSize(); j++) {
                 if (guiGame.getGrid().gridUnitValue(i, j)) {
                     g.setColor(Color.BLACK);
                     g.fillRect(i * unitSize, j * unitSize, unitSize, unitSize);

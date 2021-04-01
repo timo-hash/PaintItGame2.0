@@ -4,9 +4,11 @@ package model;
  * Represents the screen in terms of a grid
  */
 
+import gui.exceptions.InvalidSizeException;
+
 public class Grid {
 
-    private int gridSize = 5;  // works better if it's an odd number
+    private int gridSize;  // works better if it's an odd number
     private boolean[][] gameScreen;
 
 
@@ -17,8 +19,16 @@ public class Grid {
     }
 
     // setter
-    public void setGridSize(int gridSize) {
-        this.gridSize = gridSize;
+    // MODIFIES: this
+    // EFFECTS: if given dimension is < 3, throw InvalidSizeException and set grid size to 5,
+    //          else set to specified grid dimension
+    public void setGridSize(int gridSize) throws InvalidSizeException {
+        if (gridSize < 3) {
+            this.gridSize = 5;
+            throw new InvalidSizeException();
+        } else {
+            this.gridSize = gridSize;
+        }
     }
 
 

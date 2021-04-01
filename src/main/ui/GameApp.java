@@ -1,5 +1,6 @@
 package ui;
 
+import gui.exceptions.InvalidSizeException;
 import model.Grid;
 import model.Leaderboard;
 import model.Player;
@@ -81,6 +82,11 @@ public class GameApp {
     // EFFECTS: initializes grid, playerSquare and input
     private void init() {
         game = new Grid();
+        try {
+            game.setGridSize(5);
+        } catch (InvalidSizeException e) {
+            System.err.println("Invalid size. Set to default size of 5");
+        }
         ps = new PlayerSquare(game.getGridSize());
         input = new Scanner(System.in);
 

@@ -33,3 +33,7 @@ others to play.*
 
 - As a user, I want to be able to save my leaderboard scores to file
 - As a user, I want to be able to load my leaderboard scores from file when game starts 
+
+## Java Construct: Robustness
+Within the Grid class, an exception will be thrown by setGridSize(int gridSize) method if the given size is too small 
+or negative.

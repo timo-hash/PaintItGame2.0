@@ -1,5 +1,6 @@
 package gui;
 
+import gui.exceptions.InvalidSizeException;
 import model.Grid;
 import model.Leaderboard;
 import model.Player;
@@ -35,6 +36,11 @@ public class PIGame {
     public PIGame() {
         leaderboard = new Leaderboard("Paint It Leaderboard");
         game = new Grid();
+        try {
+            game.setGridSize(5);
+        } catch (InvalidSizeException e) {
+            System.err.println("Invalid size. Set to default size of 5");
+        }
         ps = new PlayerSquare(game.getGridSize());
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -182,6 +188,11 @@ public class PIGame {
         gameStillGoing = true;
         trueCounter = 1;
         game = new Grid();
+        try {
+            game.setGridSize(5);
+        } catch (InvalidSizeException e) {
+            System.err.println("Invalid size. Set to default size of 5");
+        }
         ps = new PlayerSquare(game.getGridSize());
         game.makeGrid();
     }

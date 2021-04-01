@@ -1,5 +1,6 @@
 package model;
 
+import gui.exceptions.InvalidSizeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,13 +10,24 @@ class GridTest {
 
     public Grid testGrid3;
     public Grid testGrid5;
-    private int gridSize;
+    public Grid testSetGrid;
 
     @BeforeEach
     public void setup () {
+        testSetGrid = new Grid();
         testGrid3 = new Grid();
-        testGrid3.setGridSize(3);
+        try {
+            testGrid3.setGridSize(3);
+        } catch (InvalidSizeException e) {
+            System.err.println("Invalid size. Set to default size of 5");
+        }
+
         testGrid5 = new Grid();
+        try {
+            testGrid5.setGridSize(5);
+        } catch (InvalidSizeException e) {
+            System.err.println("Invalid size. Set to default size of 5");
+        }
 
         testGrid3.makeGrid();
         testGrid5.makeGrid();
@@ -178,6 +190,46 @@ class GridTest {
     public void testGetGridScreenLength() {
         assertEquals(3, testGrid3.getGameScreen().length);
         assertEquals(5, testGrid5.getGameScreen().length);
+    }
+
+    @Test void testSetGridSizeTooSmall() {
+        try {
+            testSetGrid.setGridSize(2);
+            fail("Should not be here");
+        } catch (InvalidSizeException e) {
+            // good catch
+        }
+
+        assertEquals(5, testSetGrid.getGridSize());
+    }
+
+    @Test void testSetGridSizeNegativeDimension() {
+        try {
+            testSetGrid.setGridSize(-5);
+            fail("Should not be here");
+        } catch (InvalidSizeException e) {
+            // good catch
+        }
+
+        assertEquals(5, testSetGrid.getGridSize());
+    }
+
+    @Test void testSetGridSizeValid3() {
+        try {
+            testSetGrid.setGridSize(3);
+            assertEquals(3, testSetGrid.getGridSize());
+        } catch (InvalidSizeException e) {
+            fail("Should not throw InvalidSizeException");
+        }
+    }
+
+    @Test void testSetGridSizeValid7() {
+        try {
+            testSetGrid.setGridSize(7);
+            assertEquals(7, testSetGrid.getGridSize());
+        } catch (InvalidSizeException e) {
+            fail("Should not throw InvalidSizeException");
+        }
     }
 
 
