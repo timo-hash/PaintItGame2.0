@@ -1,4 +1,4 @@
-# My CPSC 210 Term Project
+# PaintIt Project
 
 ## Game: Paint It 
 
@@ -23,23 +23,23 @@ the stages.*
 others to play.*
 
 
-## User Story
-- As a user, I want to be able to end the game when I finish the puzzle successfully
-- As a user, I want to be able to end the game when I run outside of the boundaries or into the trail (lose)
-- As a user, I want to be able to move the square in all 4 directions
-- As a user, I want to be able to enter my name into the leaderboard once I have finished or failed
-- As a user, I want to be able to see the leaderboard
-- As a user, I want to be able to be able to try again
+## Overview
+- I want to be able to end the game when I finish the puzzle successfully
+- I want to be able to end the game when I run outside of the boundaries or into the trail (lose)
+- I want to be able to move the square in all 4 directions
+- I want to be able to enter my name into the leaderboard once I have finished or failed
+- I want to be able to see the leaderboard
+- I want to be able to be able to try again
 
-- As a user, I want to be able to save my leaderboard scores to file
-- As a user, I want to be able to load my leaderboard scores from file when game starts 
+- I want to be able to save my leaderboard scores to file
+- I want to be able to load my leaderboard scores from file when game starts 
 
-## Phase 4: Task 2
+
 **Java Construct: Robustness**
 - Within the Grid class, an exception will be thrown by setGridSize(int gridSize) method if the given size is too small 
 or negative.
 
-## Phase 4: Task 3
+
 **Possible Refactoring**
 - Could abstract out the duplicated code in check button methods (i.e. checkUpButton(), checkDownButton(),
  checkLeftButton(), checkRightButton()) of PaintIt Class.
