@@ -1,10 +1,13 @@
 package gui;
 
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 
 /*
@@ -24,13 +27,13 @@ public class PaintIt extends JFrame {
     /*
      * Play the game
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         new PaintIt();
     }
 
     // Constructs main window
     // effects: sets up window in which Space PaintIt game will be played
-    public PaintIt() {
+    public PaintIt() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         super("Paint It");
         screenSize = new ScreenSize();
         setVisible(true);
@@ -38,8 +41,17 @@ public class PaintIt extends JFrame {
         setSize(screenSize.getScreenWidth(), screenSize.getScreenHeight());
         centreOnScreen();
 
+        startMusic();
         init();
         startGame();
+    }
+
+    private void startMusic() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+        File file = new File("Original Tetris theme (Tetris Soundtrack).wav");
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        clip.start();
     }
 
     // Initializes variables and objects to start game

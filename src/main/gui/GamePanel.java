@@ -41,9 +41,9 @@ public class GamePanel extends JPanel {
     // effects:  draws the game onto g
     private void drawGame(Graphics g) {
         drawGrid(g);
-        drawStarterSquare(g);
-        drawPlayerSquare(g);
+//        drawStarterSquare(g);
         drawTrail(g);
+        drawPlayerSquare(g);
     }
 
 
@@ -76,7 +76,7 @@ public class GamePanel extends JPanel {
         int squareX = ps.getCurrentXPos() * unitSize;
         int squareY = ps.getCurrentYPos() * unitSize;
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.YELLOW);
         g.fillRect(squareX, squareY, unitSize, unitSize);
     }
 

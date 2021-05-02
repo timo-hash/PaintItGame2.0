@@ -6,11 +6,27 @@ package model;
 
 import gui.exceptions.InvalidSizeException;
 
+import java.util.Random;
+
 public class Grid {
 
     private int gridSize;  // works better if it's an odd number
     private boolean[][] gameScreen;
+    private int difficulty = 1;
+    private int randomX;
+    private int randomY;
 
+
+    public Grid(int size) {
+        try {
+            setGridSize(size);
+        } catch (InvalidSizeException e) {
+            e.printStackTrace();
+            System.err.println("Invalid size. Set to default size of 5");
+        }
+        makeGrid();
+        fillRandomSquare();
+    }
 
     // getter
     // EFFECTS: return the field gridSize
@@ -46,6 +62,42 @@ public class Grid {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: generate a random x and y coordinate on the grid
+    public void generateRandomCoordinate() {
+        Random rand = new Random();
+        int upperbound = getGridSize();
+        randomX = rand.nextInt(upperbound);
+        randomY = rand.nextInt(upperbound);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: given a random x and y coordinate, change the grid unit to false. If the grid unit is already false,
+     //         generate another coordinate
+    public void fillRandomSquare() {
+        int numOfRandomSquares = (gridArea() * difficulty) / 20;
+        int i = 0;
+        while (i < numOfRandomSquares) {
+            generateRandomCoordinate();
+            if (gridUnitValue(randomX, randomY) == false) {
+                fillSquare(randomX, randomY);
+                i++;
+            }
+        }
+    }
+
+    // EFFECTS: return the number of units on the grid
+    public int getNumberOfTrue() {
+        int numberOfTrues = 0;
+        for (int row = 0; row < gameScreen.length; row++) {
+            for (int col = 0; col < gameScreen.length; col++) {
+                if (gameScreen[row][col] == true) {
+                    numberOfTrues++;
+                }
+            }
+        }
+        return numberOfTrues;
+    }
 
     // EFFECTS: return the number of units on the grid
     public int gridArea() {
@@ -68,10 +120,5 @@ public class Grid {
         return gameScreen;
     }
 
-//    // MODIFIES: this
-//    // EFFECTS: set size of grid
-//    public void setGridSize(int dimension) {
-//        this.gridSize = dimension;
-//    }
 
 }

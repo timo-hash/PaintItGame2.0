@@ -81,12 +81,7 @@ public class GameApp {
     // MODIFIES: this
     // EFFECTS: initializes grid, playerSquare and input
     private void init() {
-        game = new Grid();
-        try {
-            game.setGridSize(5);
-        } catch (InvalidSizeException e) {
-            System.err.println("Invalid size. Set to default size of 5");
-        }
+        game = new Grid(5);
         ps = new PlayerSquare(game.getGridSize());
         input = new Scanner(System.in);
 

@@ -27,24 +27,18 @@ public class PIGame {
     private JsonReader jsonReader;
 
     boolean gameStillGoing = true;
-    int trueCounter = 1;
     boolean continuePlaying = true;
     private ArrayList<String> leaderboardList;
+    private int dimension = 7;
 
 
     // EFFECTS: runs the game application
     public PIGame() {
         leaderboard = new Leaderboard("Paint It Leaderboard");
-        game = new Grid();
-        try {
-            game.setGridSize(5);
-        } catch (InvalidSizeException e) {
-            System.err.println("Invalid size. Set to default size of 5");
-        }
+        game = new Grid(this.dimension);
         ps = new PlayerSquare(game.getGridSize());
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        game.makeGrid();
         loadLeaderboard();
     }
 
@@ -82,7 +76,7 @@ public class PIGame {
     // MODIFIES: this
     // EFFECTS: check if the grid is filled up and no more moves are possible
     public boolean checkNoMoreMoves() {
-        if (trueCounter == game.gridArea()) {
+        if ((game.gridArea() - game.getNumberOfTrue()) == 0) {
             gameStillGoing = false;
             return false;
         }
@@ -101,8 +95,6 @@ public class PIGame {
         } else {
             ps.moveLeft();
             game.fillSquare(ps.getCurrentXPos(), ps.getCurrentYPos());
-            //printGrid();
-            trueCounter = trueCounter + 1;
         }
 
     }
@@ -117,8 +109,6 @@ public class PIGame {
         } else {
             ps.moveRight();
             game.fillSquare(ps.getCurrentXPos(), ps.getCurrentYPos());
-            //printGrid();
-            trueCounter = trueCounter + 1;
         }
     }
 
@@ -132,8 +122,6 @@ public class PIGame {
         } else {
             ps.moveUp();
             game.fillSquare(ps.getCurrentXPos(), ps.getCurrentYPos());
-            //printGrid();
-            trueCounter = trueCounter + 1;
         }
     }
 
@@ -147,25 +135,24 @@ public class PIGame {
         } else {
             ps.moveDown();
             game.fillSquare(ps.getCurrentXPos(), ps.getCurrentYPos());
-            //printGrid();
-            trueCounter = trueCounter + 1;
         }
     }
 
 
     // EFFECTS: print game over and player score on console
     public String gameOver() {
-        return "You scored " + trueCounter + " out of " + game.gridArea() + "!!";
+        return "You scored " + game.getNumberOfTrue() + " out of " + game.gridArea() + "!!";
     }
 
     // MODIFIES: Leaderboard
     // EFFECTS: record name and score of player to Leaderboard; sort scores in descending order
     public void recordNameAndScore(String playerName) {
-        player = new Player(playerName, trueCounter);
+        player = new Player(playerName, game.getNumberOfTrue());
 
         leaderboard.addPlayers(player);
         leaderboard.sortPlayers();
     }
+
 
 
     // EFFECTS: convert elements in the leaderboard array to String
@@ -186,15 +173,8 @@ public class PIGame {
     // EFFECTS: re-initiate the game and reset local variables
     public void restart() {
         gameStillGoing = true;
-        trueCounter = 1;
-        game = new Grid();
-        try {
-            game.setGridSize(5);
-        } catch (InvalidSizeException e) {
-            System.err.println("Invalid size. Set to default size of 5");
-        }
+        game = new Grid(this.dimension);
         ps = new PlayerSquare(game.getGridSize());
-        game.makeGrid();
     }
 
 
